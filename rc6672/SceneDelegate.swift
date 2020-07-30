@@ -1,5 +1,6 @@
 import UIKit
 import SwiftUI
+import RealmSwift
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
@@ -8,9 +9,21 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
+        
+        // Copy Bundled Files to default directory
+        let config = Realm.Configuration()
+        let localPath = config.fileURL!.deletingLastPathComponent().appendingPathComponent("local.realm")
+        
+        do {
+            try FileManager.default.copyItem(at: Constants.LOCAL_PATH!, to: localPath)
+        } catch CocoaError.fileWriteFileExists {
+            print("File exists at path already.")
+        } catch let error {
+            print(error)
+        }
 
         // Create the SwiftUI view that provides the window contents.
-        let contentView = ContentView()
+        let contentView = ContentView(localPath: localPath)
 
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {

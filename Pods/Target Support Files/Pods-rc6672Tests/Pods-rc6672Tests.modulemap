@@ -1,0 +1,6 @@
+framework module Pods_rc6672Tests {
+  umbrella header "Pods-rc6672Tests-umbrella.h"
+
+  export *
+  module * { export * }
+}

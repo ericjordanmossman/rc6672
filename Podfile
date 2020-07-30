@@ -7,5 +7,9 @@ target 'rc6672' do
 
   # Pods for rc6672
   pod 'RealmSwift', '~> 10.0.0-beta.2'
+  
+  target 'rc6672Tests' do
+    inherit! :search_paths
+  end
 
 end

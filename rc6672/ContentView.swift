@@ -10,12 +10,12 @@ struct ContentView: View {
         Group {
 //            Button("Seed Local Realm", action: db.seedLocalRealm)
             Button("Print Local Realm Results") {
-                print(db.openLocalRealm(path: localPath).objects(LocalClass.self))
+                print(self.db.openLocalRealm(path: self.localPath).objects(LocalClass.self))
             }
             Button("Print Local Object by Primary Key") {
                 // Hardcoded primary key "1" should exist in Resources/bundled.realm.
                 // See the commented method `seedLocalRealm` for how bundled.realm was created.
-                guard let object = db.openLocalRealm(path: localPath).object(ofType: LocalClass.self, forPrimaryKey: "1") else {
+                guard let object = self.db.openLocalRealm(path: self.localPath).object(ofType: LocalClass.self, forPrimaryKey: "1") else {
                     print("Object not found")
                     return
                 }
@@ -26,7 +26,7 @@ struct ContentView: View {
             Button("Logout user", action: db.logout)
             Button("Add synced objects", action: db.addSyncedObject)
             Button("Print Synced Realm Results") {
-                guard let realm = db.openSyncedRealm() else {
+                guard let realm = self.db.openSyncedRealm() else {
                     return
                 }
                 print(realm.objects(SyncedClass.self))

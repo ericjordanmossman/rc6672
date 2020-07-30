@@ -39,6 +39,9 @@ class rc6672Tests: XCTestCase {
         
         let objectFromPrimaryKey = realm.object(ofType: LocalClass.self, forPrimaryKey: "1")
         
+//        print(objectFromPredicate)
+//        print(objectFromPrimaryKey)
+        
         XCTAssertNotNil(objectFromPredicate)
         XCTAssertNotNil(objectFromPrimaryKey)
         XCTAssert(objectFromPredicate == objectFromPrimaryKey)

@@ -21,5 +21,9 @@ import RealmSwift
 
 struct Constants {
     static let REALM_APP_ID = "<APP_ID>"
+    //    Succeeds
+    //        static let BUNDLE_PATH = Bundle.main.url(forResource: "10_0_0beta", withExtension: "realm")
+    //    Fails
     static let BUNDLE_PATH = Bundle.main.url(forResource: "4_4_1", withExtension: "realm")
+    
 }

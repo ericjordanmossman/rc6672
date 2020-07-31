@@ -6,7 +6,8 @@ target 'rc6672' do
   use_frameworks!
 
   # Pods for rc6672
-  pod 'RealmSwift', '~> 10.0.0-beta.2'
+  # pod 'RealmSwift', '~> 4.4.1'
+  pod 'RealmSwift', '~> 10.0.0-beta2'
   
   target 'rc6672Tests' do
     inherit! :search_paths

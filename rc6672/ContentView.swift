@@ -39,7 +39,7 @@ struct ContentView: View {
                 }
                 print(object)
             }
-            
+            #if DEBUG
             Button("Login in Anonymous user", action: db.loginAnonymousUser)
             Button("Logout user", action: db.logout)
             Button("Add synced objects", action: db.addSyncedObject)
@@ -49,6 +49,7 @@ struct ContentView: View {
                 }
                 print(realm.objects(SyncedClass.self))
             }
+            #endif
         }
     }
 }
@@ -56,14 +57,8 @@ struct ContentView: View {
 // This RealmService class just made it easier to try some tests and investigate.
 // It shouldn't be considered an example to imitate in a production application.
 class RealmService {
+    #if DEBUG
     static let app = RealmApp(id: Constants.REALM_APP_ID)
-    
-    func openLocalRealm(path: URL?) -> Realm {
-        var config = Realm.Configuration()
-        config.fileURL = path ?? config.fileURL
-        config.readOnly = false
-        return try! Realm(configuration: config)
-    }
     
     func openSyncedRealm() -> Realm? {
         guard let user = RealmService.app.currentUser() else {
@@ -109,11 +104,25 @@ class RealmService {
             print(error as Any)
         }
     }
+    #endif
+    
+    func openLocalRealm(path: URL?) -> Realm {
+        var config = Realm.Configuration()
+        config.readOnly = false
+        
+        #if !DEBUG
+        config.fileURL = config.fileURL!.deletingLastPathComponent().appendingPathComponent("4_4_1.realm")
+        #else
+        config.fileURL = path ?? config.fileURL
+        #endif
+        
+        return try! Realm(configuration: config)
+    }
 
 // The primary keys are single digit integers just to make retrieving by primary key easier for testing.
 //        func seedLocalRealm() {
 //            var config = Realm.Configuration()
-//            config.fileURL = config.fileURL!.deletingLastPathComponent().appendingPathComponent("bundled.realm")
+//            config.fileURL = config.fileURL!.deletingLastPathComponent().appendingPathComponent("4_4_1.realm")
 //            config.readOnly = false
 //            let realm = try! Realm(configuration: config)
 //

@@ -32,13 +32,23 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let config = Realm.Configuration()
         let localPath = config.fileURL!.deletingLastPathComponent().appendingPathComponent("local.realm")
         
+        #if DEBUG
+        // Removes any file at the path the bundled filed be copied to
         do {
-            try FileManager.default.copyItem(at: Constants.LOCAL_PATH!, to: localPath)
-        } catch CocoaError.fileWriteFileExists {
-            print("File exists at path already.")
+            try FileManager.default.removeItem(at: localPath)
+        } catch CocoaError.fileNoSuchFile {
+            // This is expected during first run.
         } catch let error {
-            print(error)
+            print("\(error)")
         }
+        
+        // Copy bundled file
+        do {
+            try FileManager.default.copyItem(at: Constants.BUNDLE_PATH!, to: localPath)
+        } catch let error {
+            print("Error copying file: \(error)")
+        }
+        #endif
 
         // Create the SwiftUI view that provides the window contents.
         let contentView = ContentView(localPath: localPath)

@@ -19,6 +19,7 @@
 import Foundation
 import RealmSwift
 
+#if DEBUG
 class SyncedClass: Object {
     @objc dynamic var _id = ObjectId.generate()
     @objc dynamic var partition = ""
@@ -32,3 +33,4 @@ class SyncedClass: Object {
         self.partition = partition
     }
 }
+#endif

@@ -24,7 +24,7 @@ import Realm
 
 class rc6672Tests: XCTestCase {
     var db: RealmService! = nil
-    let bundledPath: URL! = Constants.LOCAL_PATH
+    let bundledPath: URL! = Constants.BUNDLE_PATH
     var testDir: URL! = nil
     
     override func setUpWithError() throws {
@@ -36,16 +36,16 @@ class rc6672Tests: XCTestCase {
     }
     
     func testExample() throws {
-        // Synchronusly Log in user
-        let expect_login = self.expectation(description: "User logged in")
-        RealmService.app.login(withCredential: AppCredentials.anonymous(), completion: { user, error in
-            XCTAssertNotNil(user, "User not logged in")
-            expect_login.fulfill()
-        })
-        waitForExpectations(timeout: 10, handler: nil)
-        
-        // Opens and writes to a synchronized realm
-        db.addSyncedObject()
+//        // Synchronusly Log in user
+//        let expect_login = self.expectation(description: "User logged in")
+//        RealmService.app.login(withCredential: AppCredentials.anonymous(), completion: { user, error in
+//            XCTAssertNotNil(user, "User not logged in")
+//            expect_login.fulfill()
+//        })
+//        waitForExpectations(timeout: 10, handler: nil)
+//        
+//        // Opens and writes to a synchronized realm
+//        db.addSyncedObject()
         
         // Opens and reads results from local realm
         let config = Realm.Configuration()
@@ -57,8 +57,9 @@ class rc6672Tests: XCTestCase {
         
         let objectFromPrimaryKey = realm.object(ofType: LocalClass.self, forPrimaryKey: "1")
         
-//        print(objectFromPredicate)
-//        print(objectFromPrimaryKey)
+        print(results)
+        print(objectFromPredicate as Any)
+        print(objectFromPrimaryKey as Any)
         
         XCTAssertNotNil(objectFromPredicate)
         XCTAssertNotNil(objectFromPrimaryKey)

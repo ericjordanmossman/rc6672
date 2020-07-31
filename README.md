@@ -6,4 +6,7 @@ Steps to run:
 * Create test server [Realm App](https://www.mongodb.com/realm).
 * Add MongoDB Realm app id to `Constants.APP_ID`
 * Enable developer mode on test server. This will allow the server to receive the schema for the synchronized classes without throwing a mismatch error.
+
+Steps to test:
+* `pod install`
 * command + u
